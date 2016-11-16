@@ -47,6 +47,8 @@ class HoneyUserCreator:
 	def getStoreSessionId(self):
 		cTime = int(round(time.time() * 1000))
                 return cTime
+	def getCookie(self):
+		return self.cookieJar
 	def setCookie(self):
 		self.cookieJar.set("exv", self.getExvField(), domain=".joinhoney.com", path="/")		
 	#def placeOrder(self, honeySessId, storeSessId):
