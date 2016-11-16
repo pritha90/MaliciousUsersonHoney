@@ -26,19 +26,17 @@ class HoneyUserCreator:
 		return "email="+email+"&password=p1234"
         def createUser(self):
 		postData = self.getNewEmailId()
-		print postData
 		headers = {'content-type' : 'application/x-www-form-urlencoded'}
                 infoResponse = requests.post(self.createUserUrl, data=postData, headers=headers)
-		userdata = json.loads(infoResponse.text)
-		self.creationResponse = userdata
+		userData = json.loads(infoResponse.text)
+		self.creationResponse = userData
 		self.id = userData["id"]
 		self.createdTime = userData["created"]
 		self.cookieJar = infoResponse.cookies
-		for cookie in infoResponse.cookies:
-			print cookie.expires
-			print cookie
+		self.setCookie()
+		print self.cookieJar
                 return infoResponse
-	def getSrc(self)
+	def getSrc(self):
 		return "extension"
 	def getExvField(self):
 		exv = "ch.9.2.0."+ self.id + ".7747308260017092690"
@@ -49,7 +47,9 @@ class HoneyUserCreator:
 	def getStoreSessionId(self):
 		cTime = int(round(time.time() * 1000))
                 return cTime
-	def placeOrder(self, honeySessId, storeSessId):
+	def setCookie(self):
+		self.cookieJar.set("exv", self.getExvField(), domain=".joinhoney.com", path="/")		
+	#def placeOrder(self, honeySessId, storeSessId):
 		
 
 if __name__ == "__main__":
