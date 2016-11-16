@@ -7,13 +7,17 @@ import json
 import time
 
 class HoneyUserCreator:
-        url = None
+        createUserUrl = None
+	periodicEventUrl = None
+	genericEvent = None
 	id = None
 	createdTime = None
 	cookieJar = None
 	creationResponse = None
         def __init__(self, url = None):
-                self.url = "https://d.joinhoney.com/extusers"
+                self.createUserUrl = "https://d.joinhoney.com/extusers"
+		self.periodicEventUrl = "https://s.joinhoney.com/ev/ext001001"
+		self.genericEvent = "https://s.joinhoney.com/evs"
 	def getNewEmailId(self):
 		emailGen = FakeEmailGenerator()
 		email = emailGen.getNewEmail()
@@ -24,7 +28,7 @@ class HoneyUserCreator:
 		postData = self.getNewEmailId()
 		print postData
 		headers = {'content-type' : 'application/x-www-form-urlencoded'}
-                infoResponse = requests.post(self.url, data=postData, headers=headers)
+                infoResponse = requests.post(self.createUserUrl, data=postData, headers=headers)
 		userdata = json.loads(infoResponse.text)
 		self.creationResponse = userdata
 		self.id = userData["id"]
