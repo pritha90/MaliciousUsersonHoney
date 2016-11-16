@@ -4,6 +4,7 @@ import requests
 from bs4 import BeautifulSoup, Comment
 import HTMLParser
 import json
+import time
 
 class HoneyUserCreator:
         url = None
@@ -31,6 +32,17 @@ class HoneyUserCreator:
 			print cookie.expires
 			print cookie
                 return infoResponse
+	def getSrc(self)
+		return "extension"
+	def getExvField(self):
+		exv = "ch.9.2.0."+ self.id + ".7747308260017092690"
+		return exv
+	def getHoneySessionId(self):
+		cTime = int(round(time.time() * 1000))
+		return cTime
+	def getStoreSessionId(self):
+		cTime = int(round(time.time() * 1000))
+                return cTime
 	def placeOrder(self, response):
 		
 
