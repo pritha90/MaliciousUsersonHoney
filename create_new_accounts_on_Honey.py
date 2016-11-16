@@ -119,8 +119,20 @@ class HoneyUserCreator:
                 }
                 return headers
 	
+	def fakeUserRequest(self):
 		
-
+		#user = HoneyUserCreator()
+		print self.createUser().text
+		time.sleep(2)
+		honeySessId = self.getHoneySessionId()
+		time.sleep(2)
+		storeSessId = self.getStoreSessionId()
+		resp1 = self.sendPeriodicEvent(honeySessId, storeSessId)
+		resp2 = self.sendOrderEvent1(honeySessId, storeSessId)
+		resp3 = self.sendOrderEvent2(honeySessId, storeSessId)
+		resp4 = self.sendOrderEvent3(honeySessId, storeSessId)
+		return resp1, resp2, resp3, resp4
+"""
 if __name__ == "__main__":
 	user = HoneyUserCreator()
 	print user.createUser().text
@@ -132,3 +144,5 @@ if __name__ == "__main__":
 	user.sendOrderEvent1(honeySessId, storeSessId)
 	user.sendOrderEvent2(honeySessId, storeSessId)
 	user.sendOrderEvent3(honeySessId, storeSessId)
+
+"""
