@@ -128,8 +128,11 @@ class HoneyUserCreator:
 		time.sleep(2)
 		storeSessId = self.getStoreSessionId()
 		resp1 = self.sendPeriodicEvent(honeySessId, storeSessId)
+		time.sleep(2)
 		resp2 = self.sendOrderEvent1(honeySessId, storeSessId)
+		time.sleep(2)
 		resp3 = self.sendOrderEvent2(honeySessId, storeSessId)
+		time.sleep(2)
 		resp4 = self.sendOrderEvent3(honeySessId, storeSessId)
 		return resp1, resp2, resp3, resp4
 """
