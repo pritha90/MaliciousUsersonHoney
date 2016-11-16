@@ -36,6 +36,8 @@ class HoneyUserCreator:
 		self.setCookie()
 		print self.cookieJar
                 return infoResponse
+	def getPeriodicEventUrl(self):
+		return self.periodicEventUrl
 	def getSrc(self):
 		return "extension"
 	def getExvField(self):
@@ -52,6 +54,34 @@ class HoneyUserCreator:
 	def setCookie(self):
 		self.cookieJar.set("exv", self.getExvField(), domain=".joinhoney.com", path="/")		
 	#def placeOrder(self, honeySessId, storeSessId):
+
+	def sendPeriodicEvent(self, honeySessId, storeSessId):
+                payload = {'src': self.getSrc(), 'exv': self.getExvField(), 'event': self.getPeriodicEventPayload(honeySessId, storeSessId)}
+                headers = self.getRequestHeaders()
+                eventResponse = requests.post(self.getPeriodicEventUrl(), headers=headers, cookies= self.getCookie(), data=json.dumps(payload))
+                print eventResponse
+		print eventResponse.text
+                return eventResponse
+ 
+        def getPeriodicEventPayload(self, honeySessId, storeSessId):
+                eventPayload = {"store": {"id": "7364884674316784684", "session_id": storeSessId}, "session_id":honeySessId}
+                return eventPayload
+ 
+        def getRequestHeaders(self):
+                headers = {'Host': 's.joinhoney.com',
+                'Connection': 'keep-alive',
+                'Content-Length': '177',
+                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'Origin': 'chrome-extension://bmnlcjabgnpnenekpadlanbbkooimhnj',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
+                'Content-Type': 'application/json',
+                'DNT': '1',
+                'Accept-Encoding': 'gzip, deflate, br',
+                'Accept-Language': 'en-US,en;q=0.8',
+                'X-Honey': '9.2.0'
+                }
+                return headers
+	
 		
 
 if __name__ == "__main__":
@@ -61,4 +91,4 @@ if __name__ == "__main__":
 	honeySessId = user.getHoneySessionId()
 	time.sleep(2)
 	storeSessId = user.getStoreSessionId()
-	
+	user.sendPeriodicEvent(honeySessId, storeSessId)
