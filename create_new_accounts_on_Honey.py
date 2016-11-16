@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup, Comment
 import HTMLParser
 import json
 import time
+import util
 
 class HoneyUserCreator:
         createUserUrl = None
@@ -66,7 +67,43 @@ class HoneyUserCreator:
         def getPeriodicEventPayload(self, honeySessId, storeSessId):
                 eventPayload = {"store": {"id": "7364884674316784684", "session_id": storeSessId}, "session_id":honeySessId}
                 return eventPayload
- 
+
+	def sendOrderEvent1(self, honeySessId, storeSessId):
+				
+		orderId = "OD" + util.order_id_generator() 
+		token  = util.id_generator(32)
+		headers = self.getRequestHeaders()
+		referrerUrl = "https://www.flipkart.com/orderresponse?reference_id=" + orderId + "&token=" + token + "src=or&pr=1"
+		
+		payload = {"src": self.getSrc(),"exv": self.getExvField(), "events":[{"store":{"id":"7364884674316784684","session_id": storeSessId},"cashback_offer":{"offer":{}},"cart":{"order_id":"null","price":0},"user_hbc":1479176847,"checkout":{"stage":"confirmation"},"icon":"active","referrer_url": referrerUrl ,"session_id": honeySessId,"code":"ext009001"}]}
+		eventResponse = requests.post(self.genericEvent, data=json.dumps(payload), headers=headers, cookies= self.getCookie())
+		return eventResponse
+
+	def sendOrderEvent2(self, honeySessId, storeSessId):
+				
+		orderId = "OD" + util.order_id_generator() 
+		token  = util.id_generator(32)
+		headers = self.getRequestHeaders()
+		referrerUrl = "https://www.flipkart.com/orderresponse?reference_id=" + orderId + "&token=" + token + "src=or&pr=1"
+		
+		payload = {"src": self.getSrc(),"exv": self.getExvField(), "events":[{"matches":[{"matched_string":"Order ID"},{"matched_string":"order has been placed"},{"matched_string":"Thank you for your order"}],"previous_url":"https://www.flipkart.com/checkout/init","store":{"id":"7364884674316784684","session_id": storeSessId},"referrer_url": referrerUrl ,"session_id": honeySessId,"code":"ext009003"}]}
+		eventResponse = requests.post(self.genericEvent, data=json.dumps(payload), headers=headers, cookies= self.getCookie())
+		print eventResponse.text
+		print eventResponse.cookies
+		return eventResponse
+
+
+	def sendOrderEvent3(self, honeySessId, storeSessId):
+				
+		headers = self.getRequestHeaders()
+		referrerUrl = "https://www.flipkart.com/account/orders"
+		
+		payload = {"src": self.getSrc(),"exv": self.getExvField(), "events":[{"matches":[{"matched_string":"Order has been placed"}],"previous_url":"https://www.flipkart.com/","store":{"id":"7364884674316784684","session_id": storeSessId},"referrer_url": referrerUrl ,"session_id": honeySessId,"code":"ext009003"}]}
+		eventResponse = requests.post(self.genericEvent, data=json.dumps(payload), headers=headers, cookies= self.getCookie())
+		print eventResponse.text
+		print eventResponse.cookies
+		return eventResponse
+
         def getRequestHeaders(self):
                 headers = {'Host': 's.joinhoney.com',
                 'Connection': 'keep-alive',
@@ -92,3 +129,6 @@ if __name__ == "__main__":
 	time.sleep(2)
 	storeSessId = user.getStoreSessionId()
 	user.sendPeriodicEvent(honeySessId, storeSessId)
+	user.sendOrderEvent1(honeySessId, storeSessId)
+	user.sendOrderEvent2(honeySessId, storeSessId)
+	user.sendOrderEvent3(honeySessId, storeSessId)
