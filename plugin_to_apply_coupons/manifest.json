@@ -12,6 +12,13 @@
     "web_accessible_resources": [
         "images/*"
     ],
+    "content_scripts": [
+    {
+      "js": ["data.js"],
+      "matches": ["http://*/*",
+                "https://*/*"]
+    }
+    ],
     "permissions": [
         "webRequest",
         "webRequestBlocking",
