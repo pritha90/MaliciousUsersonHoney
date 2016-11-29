@@ -1,0 +1,26 @@
+{
+    "manifest_version": 1,
+    "name": "Test Honey",
+    "version": "1",
+    "description": "Testing all Honey Coupons",
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "background": {
+        "scripts": [
+            "b.js"
+        ]
+    },
+    "web_accessible_resources": [
+        "images/*"
+    ],
+    "permissions": [
+        "webRequest",
+        "webRequestBlocking",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "icons": {
+        "16": "icons/logo.png",
+        "48": "icons/logo.png",
+        "128": "icons/logo.png"
+    },
+}
