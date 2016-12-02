@@ -7,21 +7,15 @@
     "background": {
         "scripts": [
             "b.js"
-        ]
-    },
+        ],
+    "persistent": false
+    },    
     "web_accessible_resources": [
         "images/*"
     ],
-    "content_scripts": [
-    {
-      "js": ["data.js"],
-      "matches": ["http://*/*",
-                "https://*/*"]
-    }
-    ],
     "permissions": [
-        "webRequest",
-        "webRequestBlocking",
+        "tab",
+        "activeTab",
         "http://*/*",
         "https://*/*"
     ],
@@ -29,5 +23,8 @@
         "16": "icons/logo.png",
         "48": "icons/logo.png",
         "128": "icons/logo.png"
-    }
+    },
+    "browser_action": {
+    "default_icon": "icons/logo.png"
+  }
 }
