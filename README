@@ -1,7 +1,8 @@
-Running python create_user.py creates a new user on Honey and mimics, real shopper activity on the Flipkart Inc website. This runs in a loop.
+Running python create_new_accounts_on_Honey.py creates a new user on Honey and mimics, real shopper activity on the Flipkart Inc website. This runs in a loop.
 
-Adding all data from the Honey Extension here
 
+
+Adding all data from the Honey Extension here:=
 
 Periodic event ext001001 being sent on Honey:
 
