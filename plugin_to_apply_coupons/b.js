@@ -6,15 +6,10 @@ function injectedMethod (tab, method, callback) {
     	
 }
 
-function getBgColors (tab) {
-  // When we get a result back from the getBgColors
-  // method, alert the data
-  injectedMethod(tab, 'getBgColors', function (response) {
-    //alert(response.data);
+function applyTrigger (tab) {
+  injectedMethod(tab, 'applyTrigger', function (response) {
     return true;
   });
 }
 
-// When the browser action is clicked, call the
-// getBgColors function.
-chrome.browserAction.onClicked.addListener(getBgColors);
+chrome.browserAction.onClicked.addListener(applyTrigger);
