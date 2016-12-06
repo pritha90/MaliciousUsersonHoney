@@ -23,15 +23,15 @@ class CouponProduct:
 			fCode.write(key.get("code")+ "\n")
 			description = key.get("description")
 			#s= re.search('.*(GET|OFF|[SAVE\s$]\d+[\sON\s])+', description, re.IGNORECASE)
-			s= re.search('.*(GET|OFF|SAVE\s[$]\d+\sON\s)+', description, re.IGNORECASE)
+			s= re.search('.*(TAKE|GET|OFF|SAVE\s[$]\d+\sON\s)+', description, re.IGNORECASE)
 			if s:
 				productName = description[s.end():].strip()
-			else:
-				productName = description.strip()
 			fProduct.write(key.get("code") + "\t\t" + productName + "\n" )
 		fCode.close()
 		fProduct.close()
 
 if __name__ == "__main__":
-	couponProduct  = CouponProduct("tipsy-elves")
-	couponProduct.getCoupons()
+	stores  = ["giftsforyounow", "best-buy", "tipsy-elves", "barnes-noble", "amazon", "fairy-season", "macys", "bath-and-body-works"]
+	for i in stores:
+		couponProduct  = CouponProduct(i)
+		couponProduct.getCoupons()
