@@ -1,5 +1,5 @@
 Running python create_new_accounts_on_Honey.py creates a new user on Honey and mimics, real shopper activity on the Flipkart Inc website. This runs in a loop.
-
+The apply_coupons browser plugin code, mimics Honey behaviour of applying coupons on a users shopping cart. It tries all the available coupons unlike Honey, which only tries a subset of 10 coupons only.
 
 
 Adding all data from the Honey Extension here:=
